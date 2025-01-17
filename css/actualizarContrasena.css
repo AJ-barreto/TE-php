@@ -1,0 +1,37 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 10/04/2024, 7:03:08 p. m.
+    Author     : AJ-Barreto
+*/
+
+dialog body{
+    padding: 50px;
+    font-family: sans-serif;
+}
+
+dialog button{
+    background-color: green;
+    padding: 5px 15px;
+    border-radius: 5px;
+    color: white;
+}
+
+#modal::backdrop{
+    background-color: rgba(0,0,0,.55);
+}
+
+#modal{
+    max-width: 50ch;
+}
+
+#container{
+    text-align: center;
+}
+
+.btn{
+    padding: 10px 30px 10px 30px;
+    border-radius: 15px;
+}
