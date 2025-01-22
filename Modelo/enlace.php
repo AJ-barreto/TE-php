@@ -12,8 +12,8 @@ class Enlace {
     }
 
     // Constructor con parámetros
-    public function __constructWithParams($id, $nombre, $tipo, $url) {
-        $this->id = $id;
+    public function __constructWithParams( $nombre, $tipo, $url) {
+        //$this->id = $id;
         $this->nombre = $nombre;
         $this->tipo = $tipo;
         $this->url = $url;

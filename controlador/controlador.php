@@ -21,7 +21,7 @@ if ($usuario != null) {
             include '../Principal.php';
             break;
         case 'Home':
-            include '../Home.php';
+            include '../index Home.php';
             break;
         case 'Registrar Nuevo Usuario':
             include '../altaUsuario.php';
@@ -173,13 +173,20 @@ function handleEnlace($accion, $enlaceDAO) {
     switch ($accion) {
         case 'Listar':
             $enlaces = $enlaceDAO->listar();
-            include 'Enlaces.php';
+            include '../Enlaces.php';
             break;
         case 'Agregar':
             $nombre = $_POST['txtNombre'];
             $tipo = $_POST['txtTipo'];
             $url = $_POST['txtUrl'];
-            $enlace = new Enlace($nombre, $tipo, $url);
+            $enlace = new Enlace;
+            $enlace->__constructWithParams($nombre, $tipo, $url);
+            $nom = $enlace->getNombre();
+            $ti = $enlace->getTipo();
+            $u = $enlace->getUrl();
+            print_r("NOMBRE $nombre, TIPO $tipo, URL $url");
+            print_r("ESTE YA ES OBJETO");
+            print_r("NOMBRE : $nom, TIPO : $ti, URL : $u");
             $enlaceDAO->agregar($enlace);
             header('Location: Controlador.php?menu=Enlace&accion=Listar');
             break;
@@ -196,7 +203,7 @@ function handleEnlace($accion, $enlaceDAO) {
         case 'Editar':
             $id = $_GET['id'];
             $enlace = $enlaceDAO->listarId($id);
-            include 'Enlaces.php';
+            include '../Enlaces.php';
             break;
         case 'Delete':
             $id = $_GET['id'];

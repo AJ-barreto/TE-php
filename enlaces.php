@@ -1,6 +1,6 @@
 <?php
 // Iniciar sesión y configurar datos de ejemplo
-session_start();
+
 
 // Datos de ejemplo para la lista de enlaces (simulando una consulta a la base de datos)
 $enlaces = $_SESSION['enlaces'] ?? [

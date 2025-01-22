@@ -27,7 +27,7 @@ class EnlaceDAO {
                 $result = $stmt->get_result();
                 while ($row = $result->fetch_assoc()) {
                     $en = new Enlace(); 
-                    $en->setId($row['id_enlace']); 
+                    $en->setId($row['id']); 
                     $en->setNombre($row['nombre']); 
                     $en->setTipo($row['tipo']); 
                     $en->setUrl($row['url']); 
@@ -64,8 +64,10 @@ class EnlaceDAO {
                 $tipo = $en->getTipo(); 
                 $url = $en->getUrl(); 
                 $stmt->bind_param("sss", $nombre, $tipo, $url); 
-                $result = $stmt->execute(); 
+                $stmt->execute(); 
+                $rowCount = $stmt->affected_rows; 
                 $stmt->close(); 
+                return $rowCount;
             } else { 
                 throw new Exception("Error en la preparación de la declaración."); 
             }
@@ -78,7 +80,7 @@ class EnlaceDAO {
         } catch (Exception $ex) {
             echo "Error: " . $ex->getMessage();
         }
-        return $this->r;
+        return 0;
     }
 
     // Listar un enlace por ID

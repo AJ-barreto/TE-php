@@ -27,10 +27,6 @@
                             <a style="margin-left: 10px; border: none" class="btn btn-outline-light" href="controlador/controlador.php?menu=Enlace&accion=Listar" target="myFrame">Enlaces</a>
                         </li>
                         <li class="nav-item">
-                            <img src="https://static.vecteezy.com/system/resources/previews/010/141/490/non_2x/worker-people-icon-sign-symbol-design-free-png.png" alt="Casa" width="30" align="right">
-                            <a style="margin-left: 10px; border: none" class="btn btn-outline-light" href="controlador/controlador.php?menu=Empleado&accion=Listar" target="myFrame">Sistema Recomendador</a>
-                        </li>
-                        <li class="nav-item">
                             <img src="https://cdn-icons-png.flaticon.com/512/175/175141.png" alt="Casa" width="30" align="right">
                             <a style="margin-left: 10px; border: none" class="btn btn-outline-light" href="controlador/controlador.php?menu=InformacionProyecto" target="myFrame">Información del proyecto</a>
                         </li>
