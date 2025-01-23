@@ -173,6 +173,7 @@ function handleEnlace($accion, $enlaceDAO) {
     switch ($accion) {
         case 'Listar':
             $enlaces = $enlaceDAO->listar();
+            $_SESSION['enlaces'] = $enlaces;
             include '../Enlaces.php';
             break;
         case 'Agregar':

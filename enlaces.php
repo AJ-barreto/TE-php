@@ -21,7 +21,7 @@ $enlace = $_SESSION['enlace'] ?? ['nombre' => '', 'tipo' => '', 'url' => ''];
     <title>Gestión de Enlaces</title>
 </head>
 <body>
-    <div class="d-flex">
+<div class="d-flex">
         <div class="card col-sm-6">
             <div class="card-body">
                 <form action="controlador.php?menu=Enlace" method="POST">
@@ -57,13 +57,13 @@ $enlace = $_SESSION['enlace'] ?? ['nombre' => '', 'tipo' => '', 'url' => ''];
                 <tbody>
                     <?php foreach ($enlaces as $en): ?>
                         <tr>
-                            <td><?= htmlspecialchars($en['id']) ?></td>
-                            <td><?= htmlspecialchars($en['nombre']) ?></td>
-                            <td><?= htmlspecialchars($en['tipo']) ?></td>
-                            <td><?= htmlspecialchars($en['url']) ?></td>
+                            <td><?= htmlspecialchars($en->getId()) ?></td>
+                            <td><?= htmlspecialchars($en->getNombre()) ?></td>
+                            <td><?= htmlspecialchars($en->getTipo()) ?></td>
+                            <td><?= htmlspecialchars($en->getUrl()) ?></td>
                             <td>
-                                <a class="btn btn-warning" href="controlador.php?menu=Enlace&accion=Editar&id=<?= $en['id'] ?>">Editar</a>
-                                <a class="btn btn-danger" href="controlador.php?menu=Enlace&accion=Delete&id=<?= $en['id'] ?>">Eliminar</a>
+                                <a class="btn btn-warning" href="controlador.php?menu=Enlace&accion=Editar&id=<?= $en->getId() ?>">Editar</a>
+                                <a class="btn btn-danger" href="controlador.php?menu=Enlace&accion=Delete&id=<?= $en->getId() ?>">Eliminar</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
