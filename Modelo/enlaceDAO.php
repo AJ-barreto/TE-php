@@ -86,14 +86,14 @@ class EnlaceDAO {
     // Listar un enlace por ID
     public function listarId($id) {
         $en = new Enlace();
-        $sql = "SELECT * FROM enlace WHERE id_enlace = ?";
+        $sql = "SELECT * FROM enlace WHERE id = ?";
         try {
             if ($stmt = $this->conn->prepare($sql)) { 
                 $stmt->bind_param("i", $id); 
                 $stmt->execute(); 
                 $result = $stmt->get_result();
                 if ($row = $result->fetch_assoc()) { 
-                    $en->setId($row['id_enlace']); 
+                    $en->setId($row['id']); 
                     $en->setNombre($row['nombre']); 
                     $en->setTipo($row['tipo']); 
                     $en->setUrl($row['url']); 
@@ -121,7 +121,7 @@ class EnlaceDAO {
 
     // Actualizar un enlace
     public function actualizar($en) {
-        $sql = "UPDATE enlace SET nombre = ?, tipo = ?, url = ? WHERE id_enlace = ?";
+        $sql = "UPDATE enlace SET nombre = ?, tipo = ?, url = ? WHERE id = ?";
         $result = false;
         try {
             if ($stmt = $this->conn->prepare($sql)) { 
@@ -129,7 +129,8 @@ class EnlaceDAO {
                 $tipo = $en->getTipo(); 
                 $url = $en->getUrl(); 
                 $id = $en->getId(); 
-                $stmt->bind_param("sssi", $nombre, $tipo, $url, $id); $result = $stmt->execute(); 
+                $stmt->bind_param("sssi", $nombre, $tipo, $url, $id); 
+                $result = $stmt->execute(); 
                 $stmt->close(); 
             } else {
                 throw new Exception("Error en la preparación de la declaración.");
@@ -144,12 +145,12 @@ class EnlaceDAO {
         } catch (Exception $ex) {
             echo "Error: " . $ex->getMessage();
         }
-        return $this->r;
+        return 0;
     }
 
     // Eliminar un enlace
     public function delete($id) {
-        $sql = "DELETE FROM enlace WHERE id_enlace = ?";
+        $sql = "DELETE FROM enlace WHERE id = ?";
         $result = false;
         try {
             if ($stmt = $this->conn->prepare($sql)) { 

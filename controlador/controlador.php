@@ -174,6 +174,7 @@ function handleEnlace($accion, $enlaceDAO) {
         case 'Listar':
             $enlaces = $enlaceDAO->listar();
             $_SESSION['enlaces'] = $enlaces;
+            unset($_SESSION['enlace']);
             include '../Enlaces.php';
             break;
         case 'Agregar':
@@ -182,9 +183,6 @@ function handleEnlace($accion, $enlaceDAO) {
             $url = $_POST['txtUrl'];
             $enlace = new Enlace;
             $enlace->__constructWithParams($nombre, $tipo, $url);
-            $nom = $enlace->getNombre();
-            $ti = $enlace->getTipo();
-            $u = $enlace->getUrl();
             print_r("NOMBRE $nombre, TIPO $tipo, URL $url");
             print_r("ESTE YA ES OBJETO");
             print_r("NOMBRE : $nom, TIPO : $ti, URL : $u");
@@ -196,7 +194,9 @@ function handleEnlace($accion, $enlaceDAO) {
             $nombre = $_POST['txtNombre'];
             $tipo = $_POST['txtTipo'];
             $url = $_POST['txtUrl'];
-            $enlace = new Enlace($nombre, $tipo, $url);
+            print_r("NOMBRE $nombre, TIPO $tipo, URL $url, ID $id");
+            $enlace = new Enlace;
+            $enlace->__constructWithParams($nombre, $tipo, $url);
             $enlace->setId($id);
             $enlaceDAO->actualizar($enlace);
             header('Location: Controlador.php?menu=Enlace&accion=Listar');
@@ -204,6 +204,7 @@ function handleEnlace($accion, $enlaceDAO) {
         case 'Editar':
             $id = $_GET['id'];
             $enlace = $enlaceDAO->listarId($id);
+            $_SESSION['enlace'] = $enlace;
             include '../Enlaces.php';
             break;
         case 'Delete':

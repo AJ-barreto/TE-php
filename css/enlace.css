@@ -1,0 +1,80 @@
+/* estilos.css */
+
+/* Estilo general del cuerpo */
+body {
+    background-color: #f8f9fa;
+    color: #212529;
+    font-family: Arial, sans-serif;
+}
+
+/* Estilo para la tarjeta del formulario */
+.card {
+    margin: 20px;
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+}
+
+.card-body {
+    padding: 1.25rem;
+}
+
+/* Estilo para el formulario */
+.form-control {
+    margin-bottom: 10px;
+}
+
+.btn-info {
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+}
+
+.btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+/* Estilo para la tabla */
+.custom-table {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #212529;
+    background-color: #fff;
+}
+
+.custom-table th,
+.custom-table td {
+    padding: 0.75rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+}
+
+.custom-table thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #dee2e6;
+    background-color: #f8f9fa;
+}
+
+.custom-table tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.custom-table tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.075);
+}
+
+/* Estilo para los botones */
+.custom-table .btn {
+    margin-right: 5px;
+}
+
+/* Estilo para el pie de página */
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding-top: 15px;
+}

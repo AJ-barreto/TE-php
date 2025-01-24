@@ -3,13 +3,10 @@
 
 
 // Datos de ejemplo para la lista de enlaces (simulando una consulta a la base de datos)
-$enlaces = $_SESSION['enlaces'] ?? [
-    ['id' => 1, 'nombre' => 'Google', 'tipo' => 'Buscador', 'url' => 'https://www.google.com'],
-    ['id' => 2, 'nombre' => 'GitHub', 'tipo' => 'Repositorio', 'url' => 'https://github.com']
-];
+$enlaces = $_SESSION['enlaces'] ?? [];
 
 // Obtener datos del enlace actual para edición (simulado)
-$enlace = $_SESSION['enlace'] ?? ['nombre' => '', 'tipo' => '', 'url' => ''];
+$enlaceActual = $_SESSION['enlace'] ?? null;
 ?>
 
 <!DOCTYPE html>
@@ -18,24 +15,26 @@ $enlace = $_SESSION['enlace'] ?? ['nombre' => '', 'tipo' => '', 'url' => ''];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/enlace.css" type="text/css" media="all">
     <title>Gestión de Enlaces</title>
 </head>
 <body>
-<div class="d-flex">
+    <div class="d-flex">
         <div class="card col-sm-6">
             <div class="card-body">
                 <form action="controlador.php?menu=Enlace" method="POST">
+                    <input type="hidden" value="<?= htmlspecialchars($enlaceActual ? $enlaceActual->getId() : '') ?>" name="txtId" class="form-control">
                     <div>
                         <label>Nombre</label>
-                        <input type="text" value="<?= htmlspecialchars($enlace['nombre']) ?>" name="txtNombre" class="form-control">
+                        <input type="text" value="<?= htmlspecialchars($enlaceActual ? $enlaceActual->getNombre() : '') ?>" name="txtNombre" class="form-control">
                     </div>
                     <div>
                         <label>Tipo</label>
-                        <input type="text" value="<?= htmlspecialchars($enlace['tipo']) ?>" name="txtTipo" class="form-control">
+                        <input type="text" value="<?= htmlspecialchars($enlaceActual ? $enlaceActual->getTipo() : '') ?>" name="txtTipo" class="form-control">
                     </div>
                     <div>
                         <label>Url</label>
-                        <input type="text" value="<?= htmlspecialchars($enlace['url']) ?>" name="txtUrl" class="form-control">
+                        <input type="text" value="<?= htmlspecialchars($enlaceActual ? $enlaceActual->getUrl() : '') ?>" name="txtUrl" class="form-control">
                     </div>
 
                     <input type="submit" name="accion" value="Agregar" class="btn btn-info">
@@ -44,7 +43,7 @@ $enlace = $_SESSION['enlace'] ?? ['nombre' => '', 'tipo' => '', 'url' => ''];
             </div>       
         </div>
         <div class="col-sm-8">
-            <table class="table table-hover">
+            <table class="table custom-table">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -71,7 +70,7 @@ $enlace = $_SESSION['enlace'] ?? ['nombre' => '', 'tipo' => '', 'url' => ''];
             </table>
         </div>
     </div>
-    <footer class="footer" style="position: fixed; bottom: 0; width: 100%; height: 50px; background-color: #333; text-align: center; color: white; margin-bottom: 0px;">
+    <footer class="footer">
         <blockquote class="blockquote text-center mx-auto" style="background: #333333; margin-bottom: 0px; color: white;">
             <p class="mb-0">CONTACTO: admin@gmail.com Tel: 1234567890</p>
         </blockquote>
