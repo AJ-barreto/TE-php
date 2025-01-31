@@ -2,15 +2,22 @@
 //session_start(); 
 
 //include_once '../Modelo/Empleado.php'; 
-
+require_once 'config/Conexion.php';
 $emp = $_SESSION['usuario'];
 
 if (isset($_SESSION['usuario'])) {
     $emp = $_SESSION['usuario']; // Recuperar el objeto usuario de la sesión
+    $conexion = new Conexion();
+    $conn = $conexion->getConexion();
+
+    $stmt = $conn->prepare("SELECT usuario, comentario, fecha FROM comentarios ORDER BY fecha DESC");
+    $stmt->execute();
+    $result = $stmt->get_result();
 ?>
-<!DOCTYPE html>
-<!DOCTYPE html>
-<html>
+    <!DOCTYPE html>
+    <!DOCTYPE html>
+    <html>
+
     <head>
         <meta charset="utf-8">
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -47,6 +54,7 @@ if (isset($_SESSION['usuario'])) {
         * License: https://bootstrapmade.com/license/
         ======================================================== -->
     </head>
+
     <body>
 
         <!-- ======= Top Bar ======= -->
@@ -77,49 +85,6 @@ if (isset($_SESSION['usuario'])) {
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav><!-- .navbar -->
         </div>
-
-        <!-- ======= Header ======= -->
-        <!--
-        <header id="header" class="fixed-top">
-          <div class="container d-flex align-items-center">
-      
-            <h1 class="logo me-auto"><a href="index.html">Medilab</a></h1>
-            Uncomment below if you prefer to use an image logo -->
-        <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
-        <!--
-              <nav id="navbar" class="navbar order-last order-lg-0">
-                <ul>
-                  <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
-                  <li><a class="nav-link scrollto" href="#about">About</a></li>
-                  <li><a class="nav-link scrollto" href="#services">Services</a></li>
-                  <li><a class="nav-link scrollto" href="#departments">Departments</a></li>
-                  <li><a class="nav-link scrollto" href="#doctors">Doctors</a></li>
-                  <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
-                    <ul>
-                      <li><a href="#">Drop Down 1</a></li>
-                      <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
-                        <ul>
-                          <li><a href="#">Deep Drop Down 1</a></li>
-                          <li><a href="#">Deep Drop Down 2</a></li>
-                          <li><a href="#">Deep Drop Down 3</a></li>
-                          <li><a href="#">Deep Drop Down 4</a></li>
-                          <li><a href="#">Deep Drop Down 5</a></li>
-                        </ul>
-                      </li>
-                      <li><a href="#">Drop Down 2</a></li>
-                      <li><a href="#">Drop Down 3</a></li>
-                      <li><a href="#">Drop Down 4</a></li>
-                    </ul>
-                  </li>
-                  <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
-                </ul>
-                <i class="bi bi-list mobile-nav-toggle"></i>
-              </nav> .navbar -->
-        <!--
-        <a href="#appointment" class="appointment-btn scrollto"><span class="d-none d-md-inline">Make an</span> Appointment</a>
-    
-      </div>
-    </header> End Header -->
 
         <!-- ======= Hero Section ======= -->
         <section id="hero" class="d-flex align-items-center">
@@ -215,7 +180,7 @@ if (isset($_SESSION['usuario'])) {
 
                             <div class="icon-box">
                                 <div class="icon"><i class="bx bx-atom"></i></div>
-                                <p class="description">   Implementar el modelo de validación TAM para medir el grado de aceptación del proyecto.</p>
+                                <p class="description"> Implementar el modelo de validación TAM para medir el grado de aceptación del proyecto.</p>
                             </div>
                         </div>
                     </div>
@@ -358,154 +323,145 @@ if (isset($_SESSION['usuario'])) {
                                 <h2>Comentarios</h2>
                                 <p>En esta sección puede agregar comentarios</p>
                             </div>
-                        </div>
-                        <div class="container">
-                            <div class="row mt-3">
+                    </div>
+                    <div class="container">
+                        <div class="row mt-3">
 
-                                <div class="col-lg-2">
-                                    <div class="info">
-                                        <div class="address">
+                            <div class="col-lg-2">
+                                <div class="info">
+                                    <div class="address">
 
 
-                                        </div>
+                                    </div>
 
-                                        <div class="email">
+                                    <div class="email">
 
-                                        </div>
+                                    </div>
 
-                                        <div class="phone">
-
-                                        </div>
+                                    <div class="phone">
 
                                     </div>
 
                                 </div>
 
-                                <div class="col-lg-8 mt-5 mt-lg-0">
-
-                                    <form action="forms/contact.php" method="post" role="form" class="php-email-form">
-                                        <div class="form-group mt-3">
-                                            <input type="text" class="form-control" name="subject" id="subject" placeholder="Usuario" required>
-                                        </div>
-                                        <div class="form-group mt-3">
-                                            <textarea class="form-control" name="message" rows="5" placeholder="Comentario" required></textarea>
-                                        </div>
-                                        <div class="my-3">
-                                            <div class="loading">Loading</div>
-                                            <div class="error-message"></div>
-                                            <div class="sent-message">Your message has been sent. Thank you!</div>
-                                        </div>
-                                        <div class="text-center"><button type="submit">Enviar</button></div>
-                                    </form>
-
-                                </div>
-
                             </div>
 
-                        </div>
-                        <div class="container">
-
-                            <div class="section-title">
-                                <h2>Cambios</h2>
-                                <p>En esta sección puede agregar cambios en el desarrollo del proyecto</p>
-                            </div>
-                        </div>
-                        <div class="container">
-                            <div class="row mt-3">
-
-                                <div class="col-lg-2">
-                                    <div class="info">
-                                        <div class="address">
-
-
-                                        </div>
-
-                                        <div class="email">
-
-                                        </div>
-
-                                        <div class="phone">
-
-                                        </div>
-
+                            <div class="col-lg-8 mt-5 mt-lg-0">
+                                <form id="formularioComentario" action="validar.php" method="post">
+                                    <div class="form-group mt-3">
+                                        <input type="text" class="form-control" name="usuario" id="usuario" placeholder="Usuario" required>
                                     </div>
-
+                                    <div class="form-group mt-3">
+                                        <textarea class="form-control" id="comentario" name="comentario" rows="5" placeholder="Comentario" required></textarea>
+                                    </div>
+                                    <div class="text-center">
+                                        <button type="submit" id="btnEnviarComentario" name="accion" value="Agregar Comentario" class="btn btn-primary">Agregar Comentario</button>
+                                        <button type="button" id="btnLimpiar" class="btn btn-secondary">Limpiar</button>
+                                    </div>
+                                </form>
+                                <div class="text-center">
+                                    <button type="button" class="btn btn-secondary mt-3" data-bs-toggle="modal" data-bs-target="#comentariosModal">Ver Comentarios</button>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+            </section><!-- End Contact Section -->
 
-                                <div class="col-lg-8 mt-5 mt-lg-0">
-
-                                    <form action="forms/contact.php" method="post" role="form" class="php-email-form">
-                                        <div class="row">
-                                            <div class="col-md-6 form-group">
-                                                <input type="text" name="name" class="form-control" id="name" placeholder="Modulo" required>
-                                            </div>
-                                            <div class="col-md-6 form-group mt-3 mt-md-0">
-                                                <input type="email" class="form-control" name="email" id="email" placeholder="Porcentaje" required>
+            <!-- Modal de Comentarios -->
+            <div class="modal fade" id="comentariosModal" tabindex="-1" aria-labelledby="comentariosModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="comentariosModalLabel">Comentarios</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="list-group">
+                                <?php while ($row = $result->fetch_assoc()): ?>
+                                    <a href="#" class="list-group-item list-group-item-action">
+                                        <div class="card mb-3">
+                                            <div class="card-body">
+                                                <h5 class="mb-1"><?= htmlspecialchars($row['usuario']) ?></h5>
+                                                <p class="card-text"><?= htmlspecialchars($row['comentario']) ?></p>
+                                                <small><?= htmlspecialchars($row['fecha']) ?></small>
                                             </div>
                                         </div>
-                                        <div class="form-group mt-3">
-                                            <input type="text" class="form-control" name="subject" id="subject" placeholder="Encargados" required>
-                                        </div>
-                                        <div class="form-group mt-3">
-                                            <textarea class="form-control" name="message" rows="5" placeholder="Descripción" required></textarea>
-                                        </div>
-                                        <div class="my-3">
-                                            <div class="loading">Loading</div>
-                                            <div class="error-message"></div>
-                                            <div class="sent-message">Your message has been sent. Thank you!</div>
-                                        </div>
-                                        <div class="text-center"><button type="submit">Enviar</button></div>
-                                    </form>
-
-                                </div>
-
+                                    </a>
+                                <?php endwhile; ?>
                             </div>
-
                         </div>
-                        </section><!-- End Contact Section -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-                        </main><!-- End #main -->
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+            <script>
+                // Limpiar el formulario de comentarios
+                document.getElementById('btnLimpiar').addEventListener('click', function() {
+                    document.getElementById('formularioComentario').reset();
+                });
 
-                        <!-- ======= Footer ======= -->
-                        <footer id="footer">
+                // Cargar comentarios en el modal
+                document.querySelector('[data-bs-target="#comentariosModal"]').addEventListener('click', function() {
+                    fetch('controlador/controlador.php?menu=VerComentarios')
+                        .then(response => response.text())
+                        .then(data => {
+                            document.getElementById('comentariosList').innerHTML = data;
+                        })
+                        .catch(error => {
+                            console.error('Error al cargar los comentarios:', error);
+                        });
+                });
+            </script>
+
+        </main><!-- End #main -->
+
+        <!-- ======= Footer ======= -->
+        <footer id="footer">
 
 
 
-                            <div class="container d-md-flex py-4">
+            <div class="container d-md-flex py-4">
 
-                                <div class="me-md-auto text-center text-md-start">
-                                    <div class="copyright">
+                <div class="me-md-auto text-center text-md-start">
+                    <div class="copyright">
 
-                                    </div>
-                                    <div class="credits">
-                                    </div>
-                                </div>
-                                <div class="social-links text-center text-md-right pt-3 pt-md-0">
-                                    <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
-                                    <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
-                                    <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
-                                    <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
-                                    <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
-                                </div>
-                            </div>
-                        </footer><!-- End Footer -->
+                    </div>
+                    <div class="credits">
+                    </div>
+                </div>
+                <div class="social-links text-center text-md-right pt-3 pt-md-0">
+                    <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+                    <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+                    <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+                    <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+                    <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+                </div>
+            </div>
+        </footer><!-- End Footer -->
 
-                        <div id="preloader"></div>
-                        <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+        <div id="preloader"></div>
+        <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-                        <!-- Vendor JS Files -->
-                        <script src="../vendor/purecounter/purecounter_vanilla.js"></script>
-                        <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-                        <script src="../vendor/glightbox/js/glightbox.min.js"></script>
-                        <script src="../vendor/swiper/swiper-bundle.min.js"></script>
-                        <script src="../vendor/php-email-form/validate.js"></script>
+        <!-- Vendor JS Files -->
+        <script src="../vendor/purecounter/purecounter_vanilla.js"></script>
+        <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="../vendor/glightbox/js/glightbox.min.js"></script>
+        <script src="../vendor/swiper/swiper-bundle.min.js"></script>
+        <script src="../vendor/php-email-form/validate.js"></script>
 
-                        <!-- Template Main JS File -->
-                        <script src="../js/main.js"></script>
+        <!-- Template Main JS File -->
+        <script src="../js/main.js"></script>
 
-                        </body>
-                        </html>
-                        <?php
+    </body>
+
+    </html>
+<?php
+$stmt->close();
+$conn->close();
 } else {
     // Redirigir al controlador principal si no está autenticado
     header("Location: controlador/controlador.php?menu=Principal");

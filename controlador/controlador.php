@@ -7,12 +7,15 @@ $empleadoDAO = new EmpleadoDAO();
 $enlaceDAO = new EnlaceDAO();
 
 $menu = isset($_GET['menu']) ? $_GET['menu'] : '';
-if($accion = isset($_GET['accion']) ? $_GET['accion'] : ''){
+if ($accion = isset($_GET['accion']) ? $_GET['accion'] : '') {
     $accion = isset($_GET['accion']) ? $_GET['accion'] : '';
 } else {
     $accion = $_POST['accion'] ?? null;
 }
-if ($_SERVER['REQUEST_METHOD'] === 'POST') { echo "Formulario enviado\n"; var_dump($_POST); }
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    echo "Formulario enviado\n";
+    var_dump($_POST);
+}
 $usuario = isset($_SESSION['usuario']) ? $_SESSION['usuario'] : null;
 
 if ($usuario != null) {
@@ -50,7 +53,8 @@ if ($usuario != null) {
     include '../index.php';
 }
 
-function handlePerfil($accion, $empleadoDAO, $usuario) {
+function handlePerfil($accion, $empleadoDAO, $usuario)
+{
     switch ($accion) {
         case 'Listar':
             $empleados = $empleadoDAO->listar($usuario->getUser());
@@ -65,9 +69,9 @@ function handlePerfil($accion, $empleadoDAO, $usuario) {
             print_r("ACCION $accion");
             $id = filter_input(INPUT_POST, 'txtId', FILTER_SANITIZE_NUMBER_INT);
             $nombre = filter_input(INPUT_POST, 'txtNombres');
-            $telefono = filter_input(INPUT_POST, 'txtTel'); 
+            $telefono = filter_input(INPUT_POST, 'txtTel');
             $estado = filter_input(INPUT_POST, 'txtestado');
-            $usuario = filter_input(INPUT_POST, 'txtUsuario'); 
+            $usuario = filter_input(INPUT_POST, 'txtUsuario');
             $correo = filter_input(INPUT_POST, 'txtCorreo');
 
             echo "ID: $id\n";
@@ -85,22 +89,29 @@ function handlePerfil($accion, $empleadoDAO, $usuario) {
             $correo = $_POST['txtCorreo'];*/
             $empleado = new Empleado();
             $empleado->__constructWithParams($id, $nombre, $telefono, $estado, $usuario, $correo);
-            $nombre = $empleado->getNom(); $tel = $empleado->getTel(); $est = $empleado->getEstado(); $user = $empleado->getUser(); $cor = $empleado->getCorreo(); $id = $empleado->getId();    
-        print_r("Nombre: $nombre");
-        print_r("Telefono: $tel");
-        print_r("estado: $est");
-        print_r("usuario: $user");
-        print_r("correo: $cor");
-        print_r("ID: $id");
-            try{
+            $nombre = $empleado->getNom();
+            $tel = $empleado->getTel();
+            $est = $empleado->getEstado();
+            $user = $empleado->getUser();
+            $cor = $empleado->getCorreo();
+            $id = $empleado->getId();
+            print_r("Nombre: $nombre");
+            print_r("Telefono: $tel");
+            print_r("estado: $est");
+            print_r("usuario: $user");
+            print_r("correo: $cor");
+            print_r("ID: $id");
+            try {
                 $result = $empleadoDAO->actualizar($empleado);
-                if($result){
+                if ($result) {
                     echo "VAMOOOOS";
                 } else {
                     echo "NO";
                 }
                 header('Location: controlador.php?menu=Perfil&accion=Listar');
-            } catch (Exception $e) { echo "Error al actualizar el empleado: " . $e->getMessage(); }
+            } catch (Exception $e) {
+                echo "Error al actualizar el empleado: " . $e->getMessage();
+            }
             break;
         case 'ActualizarContraseña':
             $id = $_POST['txtId'];
@@ -126,7 +137,8 @@ function handlePerfil($accion, $empleadoDAO, $usuario) {
     }
 }
 
-function handleEmpleado($accion, $empleadoDAO) {
+function handleEmpleado($accion, $empleadoDAO)
+{
     switch ($accion) {
         case 'Listar':
             $empleados = $empleadoDAO->listar();
@@ -164,12 +176,14 @@ function handleEmpleado($accion, $empleadoDAO) {
         case 'Delete':
             $id = $_GET['id'];
             $empleadoDAO->delete($id);
-            echo "<script>window.top.location.href = '../index.php';</script>"; exit();
+            echo "<script>window.top.location.href = '../index.php';</script>";
+            exit();
             break;
     }
 }
 
-function handleEnlace($accion, $enlaceDAO) {
+function handleEnlace($accion, $enlaceDAO)
+{
     switch ($accion) {
         case 'Listar':
             $enlaces = $enlaceDAO->listar();
@@ -219,4 +233,3 @@ function handleEnlace($accion, $enlaceDAO) {
     return hash('sha256', $textoClaro);
     //return password_hash($textoClaro, PASSWORD_BCRYPT);
 }*/
-?>
