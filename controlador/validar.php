@@ -36,6 +36,29 @@ class Validar {
                 exit;
             }
 
+            if (strtolower($accion) == 'registrar') {
+                $contra = $_POST['txtContra'];
+                $nom = $_POST['txtNombres'];
+                $user = $_POST['txtUsuario'];
+                $gmail = $_POST['txtCorreo'];
+                $contraSegura = $this->edao->asegurarClave($contra);
+                $this->em->setContra($contraSegura);
+                $this->em->setNom($nom);
+                $this->em->setUser($user);
+                $this->em->setCorreo($gmail);
+                $this->em->setTel("N/A");
+                $this->em->setEstado("N/A");
+
+                try {
+                    $this->edao->agregar($this->em);
+                } catch (Exception $ex) {
+                    echo "Problema Registrar: " . $ex->getMessage();
+                }
+
+                header("Location: ../index.php");
+                exit;
+            }
+
             if (strtolower($accion) == 'agregar comentario') {
                 $conexion = new Conexion();
                 $conn = $conexion->getConexion();
@@ -187,38 +210,7 @@ class Validar {
                         echo "Error al actualizar la contraseña: " . $e->getMessage();
                     }
 
-                    // Verifica el token y actualiza la contraseña
-                    /*$conexion = new Conexion();
-                    $conn = $conexion->getConexion();
-                    $stmt = $conn->prepare("SELECT email FROM password_resets WHERE token = ? AND expires_at > NOW()");
-                    $stmt->bind_param("s", $token);
-                    $stmt->execute();
-                    $stmt->store_result();
-            */
-                   /* if ($stmt->num_rows > 0) {
-                        print_r("ENTRAMOOOOOOOOOOS POR AHORA VAMOS BIEN");
-                        $stmt->bind_result($email);
-                        $stmt->fetch();
-                        
-                        // Actualizar la contraseña del usuario
-                        $stmt = $conn->prepare("UPDATE empleado SET contra = ? WHERE correo = ?");
-                        $stmt->bind_param("ss", $pass, $email);
-                        $stmt->execute();
-            
-                        // Eliminar el token
-                        $stmt = $conn->prepare("DELETE FROM password_resets WHERE email = ?");
-                        $stmt->bind_param("s", $email);
-                        $stmt->execute();
-            
-                        echo "Su contraseña ha sido actualizada con éxito.";
-                    } else {
-                        echo "El enlace de restablecimiento es inválido o ha expirado.";
-                    }*/
-            
-                    /*$stmt->close();
-                    $conn->close();
-                } else {
-                    echo "Token no proporcionado.";*/
+                    
                 }
                 header("Location: ../index.php");
                 exit;

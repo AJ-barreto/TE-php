@@ -13,8 +13,6 @@ if ($accion = isset($_GET['accion']) ? $_GET['accion'] : '') {
     $accion = $_POST['accion'] ?? null;
 }
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    echo "Formulario enviado\n";
-    var_dump($_POST);
 }
 $usuario = isset($_SESSION['usuario']) ? $_SESSION['usuario'] : null;
 
