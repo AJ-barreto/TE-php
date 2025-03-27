@@ -3,7 +3,10 @@
         require_once 'config/Conexion.php';
         session_start();
         $emp = $_SESSION['usuario'];
-
+        
+        $rol = $emp->getEstado();
+        
+        
 
         if ($emp != null) {
 

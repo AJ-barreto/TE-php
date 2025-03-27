@@ -1,6 +1,10 @@
 <?php
 // Iniciar sesión y configurar datos de ejemplo
 
+$emp = $_SESSION['usuario'];
+
+$rol = $emp->getEstado();
+
 
 // Datos de ejemplo para la lista de enlaces (simulando una consulta a la base de datos)
 $enlaces = $_SESSION['enlaces'] ?? [];
@@ -22,6 +26,8 @@ $enlaceActual = $_SESSION['enlace'] ?? null;
     <div class="d-flex">
         <div class="card col-sm-6">
             <div class="card-body">
+                <?php
+                if ($rol === 'administrador'){?>
                 <form action="controlador.php?menu=Enlace" method="POST">
                     <input type="hidden" value="<?= htmlspecialchars($enlaceActual ? $enlaceActual->getId() : '') ?>" name="txtId" class="form-control">
                     <div>
@@ -40,6 +46,9 @@ $enlaceActual = $_SESSION['enlace'] ?? null;
                     <input type="submit" name="accion" value="Agregar" class="btn btn-info">
                     <input type="submit" name="accion" value="Actualizar" class="btn btn-success">
                 </form>
+                <?php
+                }
+                ?>
             </div>       
         </div>
         <div class="col-sm-8">
@@ -60,10 +69,15 @@ $enlaceActual = $_SESSION['enlace'] ?? null;
                             <td><?= htmlspecialchars($en->getNombre()) ?></td>
                             <td><?= htmlspecialchars($en->getTipo()) ?></td>
                             <td><?= htmlspecialchars($en->getUrl()) ?></td>
+                            <?php
+                            if ($rol === 'administrador'){?>
                             <td>
                                 <a class="btn btn-warning" href="controlador.php?menu=Enlace&accion=Editar&id=<?= $en->getId() ?>">Editar</a>
                                 <a class="btn btn-danger" href="controlador.php?menu=Enlace&accion=Delete&id=<?= $en->getId() ?>">Eliminar</a>
                             </td>
+                            <?php
+                            }
+                            ?>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>

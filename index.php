@@ -10,7 +10,7 @@
 <body>
     <div class="cuerpoFormulario" id="cuerpoFormulario">
         <form class="formularioLogin" id="formularioLogin" method="POST" action="controlador/validar.php">
-            <h1>Inicie Sesión</h1>
+            <h1>Iniciar Sesión</h1>
 
             <p>Usuario:</p>
             <div class="texto">

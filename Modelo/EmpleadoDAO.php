@@ -54,6 +54,7 @@ class EmpleadoDAO {
                     $empleado->setUser($row['Usuario']);
                     $empleado->setCorreo($row['Correo']);
                     $empleado->setNom($row['Nombres']);
+                    $empleado->setEstado($row['Estado']);
                 }
             $stmt->close();
             } else { throw new Exception("Error en la preparación de la declaración VALIDACIÖN."); }
